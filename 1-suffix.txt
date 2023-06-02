@@ -1,0 +1,22 @@
+res = []
+
+with open("1-input.txt", 'r') as f:
+    lines = f.readlines()
+
+temp_inputs = []
+for line in lines:
+    temp_inputs.append(line.strip().split())
+
+inputs = []
+for temp in temp_inputs:
+    inputs.append(list(map(lambda x:int(x), temp)))
+
+sol = Solution()
+res = []
+for input in inputs:
+    temp = dict()
+    a, b = input
+    temp["input"] = [a, b]
+    temp["user_output"] = sol.hello(a, b)
+    res.append(temp)
+print(res)
