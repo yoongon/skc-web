@@ -5,10 +5,13 @@ import os
 def hello(a, b):
     c = a + b
     return c
+
 def lambda_handler(event, context):
-    with open("1-user-code-input.txt", 'r') as f:
-        lines = f.readlines()
-    code = ''.join(lines)
+    # with open("1-user-code-input.txt", 'r') as f:
+    #     lines = f.readlines()
+    # code = ''.join(lines)
+    code = event["body"]["key1"]
+    # print (event)
 
     with open("1-suffix.txt", 'r') as f:
         lines = f.readlines()
@@ -33,11 +36,4 @@ def lambda_handler(event, context):
     }
 
 
-res = lambda_handler(None, None)
-print(res)
-
-
-
-
-
-
+# res = lambda_handler(None, None)
