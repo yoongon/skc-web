@@ -6,14 +6,11 @@ def hello(a, b):
     c = a + b
     return c
 
-def lambda_handler(event, context):
-    # with open("1-user-code-input.txt", 'r') as f:
-    #     lines = f.readlines()
-    # code = ''.join(lines)
-    code = event["body"]["key1"]
-    # print (event)
 
-    with open("1-suffix.txt", 'r') as f:
+def lambda_handler(event, context):
+    code = event["body"]["code"]
+
+    with open("suffix.txt", 'r') as f:
         lines = f.readlines()
     suffix = ''.join(lines)
 
@@ -23,7 +20,9 @@ def lambda_handler(event, context):
         f.write(code)
 
     cmd = 'python3 /tmp/output.py'
-    results_string = os.popen(cmd).read().replace("\'", "\"")
+    run_process = os.popen(cmd)
+    results_string = run_process.read().replace("\'", "\"")
+    run_process.close()
     results = json.loads(results_string)
 
     for result in results:
@@ -35,5 +34,3 @@ def lambda_handler(event, context):
         'body': json.dumps(results)
     }
 
-
-# res = lambda_handler(None, None)
