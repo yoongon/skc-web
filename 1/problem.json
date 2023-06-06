@@ -1,0 +1,4 @@
+{
+  "description": "Implements adder",
+  "sample_input": [[1, 2], [3, 4]]
+}
