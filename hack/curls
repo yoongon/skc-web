@@ -1,0 +1,3 @@
+# problem 1
+curl API_GW_URL
+curl -X POST  -H 'Content-Type: application/json' API_GW_URL -d '{"code": "class Solution:\n    def hello(self, a, b):\n        c = a + b\n        return c\n"}'

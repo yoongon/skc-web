@@ -1,14 +1,25 @@
 import json
 import os
 
-
-def hello(a, b):
-    c = a + b
-    return c
-
-
 def lambda_handler(event, context):
-    code = event["body"]["code"]
+    # print(event)
+    # print(context)
+    if event == None or len(event) == 0:
+        return {
+            'statusCode': 200,
+            'body': json.dumps(get_handler(event, context))
+        }
+    if event["httpMethod"] == "POST":
+        return post_handler(event, context)
+
+def get_handler(event, context):
+    with open('problem.json') as json_file:
+        json_data = json.load(json_file)
+    return json_data
+
+def post_handler(event, context):
+    body = json.loads(event["body"])
+    code = body["code"]
 
     with open("suffix.txt", 'r') as f:
         lines = f.readlines()
@@ -34,3 +45,6 @@ def lambda_handler(event, context):
         'body': json.dumps(results)
     }
 
+def hello(a, b):
+    c = a + b
+    return c
