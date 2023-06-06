@@ -1,16 +1,4 @@
 res = []
-
-with open("input.txt", 'r') as f:
-    lines = f.readlines()
-
-temp_inputs = []
-for line in lines:
-    temp_inputs.append(line.strip().split())
-
-inputs = []
-for temp in temp_inputs:
-    inputs.append(list(map(lambda x:int(x), temp)))
-
 sol = Solution()
 res = []
 for input in inputs:

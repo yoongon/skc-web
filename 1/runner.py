@@ -10,7 +10,10 @@ def lambda_handler(event, context):
             'body': json.dumps(get_handler(event, context))
         }
     if event["httpMethod"] == "POST":
-        return post_handler(event, context)
+        return {
+            'statusCode': 200,
+            'body': json.dumps(post_handler(event, context))
+        }
 
 def get_handler(event, context):
     with open('problem.json') as json_file:
@@ -20,10 +23,12 @@ def get_handler(event, context):
 def post_handler(event, context):
     body = json.loads(event["body"])
     code = body["code"]
+    user_inputs = body["inputs"]
+    input_string = "inputs = " + str(user_inputs)
 
     with open("suffix.txt", 'r') as f:
         lines = f.readlines()
-    suffix = ''.join(lines)
+    suffix = input_string + "\n" + ''.join(lines)
 
     code += suffix
 
@@ -40,10 +45,8 @@ def post_handler(event, context):
         input = result['input']
         solution = hello(input[0], input[1])
         result['solution_output'] = solution
-    return {
-        'statusCode': 200,
-        'body': json.dumps(results)
-    }
+    return results
+
 
 def hello(a, b):
     c = a + b
